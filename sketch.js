@@ -20,18 +20,9 @@ function setup() {
 }
 
 function draw() {
-
-  if (mode != 1) {
-
-    splash.update();
-
-    if (mouseIsPressed == true) {
-      mode = 1;
-    }
-  }
-
-  if (mode == 1) {
-
+  if (mouseIsPressed == true && splash.update() == true) {
+    mode = 1;}
+if (mode == 1) {
     splash.hide();
 
     drawSky();

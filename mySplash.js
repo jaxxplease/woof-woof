@@ -22,7 +22,7 @@ class Splash {
   this.name = createDiv("Jaxx Liu");
   this.name.position(this.splashBorder+20, this.splashBorder+60);
   
-  this.info = createDiv("You can read a bunch of stuff about my project here because I've been working very hard in this class and I have so much to say about my project, the way it works, and why I made it. It's such an incredable joy to be coding in p5js, the best programming language on Earth. <p> I could go on and on and on. <p> <a href=https://editor.p5js.org/bcjacobs/sketches/IhHSvjyZJ>view code</a>");
+  this.info = createDiv("You can read a bunch of stuff about my project here because I've been working very hard in this class and I have so much to say about my project, the way it works, and why I made it. It's such an incredable joy to be coding in p5js, the best programming language on Earth. <p> I could go on and on and on. <p> <a href=>view code</a>");
   
   this.info.position(this.splashBorder+20, this.splashBorder+100);
   this.info.size(windowWidth-this.splashBorder*2-50, windowHeight-this.splashBorder*2-50)
