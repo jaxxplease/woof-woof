@@ -14,7 +14,7 @@ class Splash {
   line(windowWidth-this.splashBorder-40, this.splashBorder+20,windowWidth-this.splashBorder-20, this.splashBorder+40)
    line(windowWidth-this.splashBorder-20, this.splashBorder+20,windowWidth-this.splashBorder-40, this.splashBorder+40)
    
-  this.title = createDiv("woof woof");
+  this.title = createDiv("Woof Woof");
   this.title.style('color:deeppink');
   this.title.style('font-family: Arial, Helvetica, sans-serif');
   this.title.position(this.splashBorder+20, this.splashBorder+20);
