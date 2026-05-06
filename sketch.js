@@ -44,12 +44,15 @@ function setup() {
   mySlider = createSlider(0,100,50) // gui example. use the .position method in the draw function
   amp = new p5.Amplitude();
   amp.setInput(bgMusic);
-lion = makeAnimal(width * 0.18, height * 0.32, width * 0.12, width * 0.25, height * 0.28, height * 0.36);
-elephant = makeAnimal(width * 0.47, height * 0.32, width * 0.40, width * 0.55, height * 0.28, height * 0.36);
-peacock = makeAnimal(width * 0.76, height * 0.35, width * 0.69, width * 0.84, height * 0.31, height * 0.39);
+lion = makeAnimal(width * 0.18, height * 0.32, width * 0.12, width * 0.24, height * 0.28, height * 0.36);
 
-panda = makeAnimal(width * 0.32, height * 0.57, width * 0.25, width * 0.40, height * 0.52, height * 0.61);
-giraffe = makeAnimal(width * 0.64, height * 0.56, width * 0.57, width * 0.75, height * 0.50, height * 0.60);
+elephant = makeAnimal(width * 0.47, height * 0.32, width * 0.40, width * 0.54, height * 0.28, height * 0.36);
+
+peacock = makeAnimal(width * 0.76, height * 0.35, width * 0.69, width * 0.83, height * 0.31, height * 0.39);
+
+panda = makeAnimal(width * 0.32, height * 0.57, width * 0.25, width * 0.39, height * 0.52, height * 0.61);
+
+giraffe = makeAnimal(width * 0.64, height * 0.56, width * 0.57, width * 0.74, height * 0.50, height * 0.60);
 
   foodX = width / 2;
   foodY = height - 80;
@@ -87,16 +90,13 @@ function makeAnimal(x, y, minX, maxX, minY, maxY) {
 
 function draw() {
 
-  // Splash → Zoo
   if (mode === 0) {
     if (mouseIsPressed && splash.update()) {
       mode = 1;
       splash.hide();
     }
-    return; // stop here
   }
 
-  // Zoo page
   if (mode === 1) {
     if (bgMusic && bgMusic.isPlaying()) {
       musicLevel = amp.getLevel() * 2.5;
@@ -105,10 +105,8 @@ function draw() {
     }
 
     drawZoo();
-    return; // VERY IMPORTANT
   }
 
-  // Game page
   if (mode === 2) {
     if (bgMusic && bgMusic.isPlaying()) {
       musicLevel = amp.getLevel() * 2.5;
@@ -169,6 +167,7 @@ drawZooLamp(width * 0.92, height * 0.55);
 drawSmallPond(width * 0.82, height * 0.58);
     
 }
+  
   
   function drawWindPlants() {
   for (let x = 15; x < width; x += 28) {
@@ -242,33 +241,31 @@ drawSmallPond(width * 0.82, height * 0.58);
     }
   }
 }
+  
+  
 function drawPebblePath() {
   noStroke();
   fill(210, 180, 130);
   ellipse(width / 2, height - 55, width * 0.75, 90);
 }
   
+  
   function drawZooLamp(x, y) {
   noStroke();
 
-  // soft ground shadow
   fill(0, 35);
   ellipse(x, y + 94, 45, 12);
 
-  // pole
   fill(70, 55, 45);
   rect(x - 4, y, 8, 95, 4);
 
-  // pole highlight
   fill(120, 95, 70, 120);
   rect(x - 2, y + 5, 2, 85, 2);
 
-  // base
   fill(80, 60, 45);
   ellipse(x, y + 95, 32, 12);
   rect(x - 12, y + 82, 24, 14, 4);
 
-  // hanging arm
   stroke(70, 55, 45);
   strokeWeight(5);
   noFill();
@@ -276,37 +273,33 @@ function drawPebblePath() {
 
   noStroke();
 
-  // glow
   fill(255, 220, 120, 45);
   ellipse(x + 38, y - 12, 75, 75);
   fill(255, 225, 140, 70);
   ellipse(x + 38, y - 12, 48, 48);
 
-  // lamp top
   fill(60, 45, 35);
   triangle(x + 18, y - 22, x + 58, y - 22, x + 38, y - 42);
 
-  // glass
   fill(255, 235, 160, 190);
   rect(x + 22, y - 22, 32, 38, 8);
 
-  // glass highlight
   fill(255, 255, 230, 130);
   ellipse(x + 32, y - 9, 8, 22);
 
-  // frame lines
   stroke(60, 45, 35);
   strokeWeight(2);
   line(x + 22, y - 2, x + 54, y - 2);
   line(x + 32, y - 22, x + 32, y + 16);
   line(x + 44, y - 22, x + 44, y + 16);
 
-  // bottom cap
   noStroke();
   fill(60, 45, 35);
   rect(x + 20, y + 13, 36, 8, 4);
 }
 
+  
+  
 function drawButterflies() {
   drawButterfly(120, 150, 1.0, color(255, 160, 100), 0);
   drawButterfly(280, 120, 0.7, color(255, 220, 80), 50);
@@ -319,16 +312,15 @@ function drawButterflies() {
   drawButterfly(260, 390, 0.6, color(120, 200, 255), 450);
   drawButterfly(320, 430, 0.7, color(255, 220, 90), 500);
 
-  // cluster between panda & giraffe
   drawButterfly(420, 410, 0.75, color(180, 120, 255), 550);
   drawButterfly(480, 440, 0.65, color(140, 230, 120), 600);
 
-  // cluster above giraffe area
   drawButterfly(580, 390, 0.85, color(255, 140, 180), 650);
   drawButterfly(650, 420, 0.7, color(100, 220, 200), 700);
   drawButterfly(720, 400, 0.6, color(255, 200, 120), 750);
 }
 
+  
 function drawButterfly(startX, startY, s, wingColor, offset) {
   let moveX = map(noise(frameCount * 0.008 + offset), 0, 1, -220, 220);
   moveX += musicLevel * 60;
@@ -349,21 +341,17 @@ function drawButterfly(startX, startY, s, wingColor, offset) {
 
   noStroke();
 
-  // wings
   fill(wingColor);
   ellipse(-10, flap, 20, 28);
   ellipse(10, -flap, 20, 28);
 
-  // smaller lower wings
   fill(red(wingColor) - 25, green(wingColor) - 25, blue(wingColor) - 25);
   ellipse(-8, 15 + flap / 2, 13, 18);
   ellipse(7, 12 - flap / 2, 13, 18);
 
-  // body
   fill(70);
   ellipse(0, 4, 6, 24);
 
-  // antennae
   stroke(70);
   strokeWeight(1);
   line(-2, -8, -8, -18);
@@ -372,6 +360,8 @@ function drawButterfly(startX, startY, s, wingColor, offset) {
   pop();
 }
 
+  
+  
   function drawSmallPond(x, y) {
   noStroke();
 
@@ -381,7 +371,6 @@ function drawButterfly(startX, startY, s, wingColor, offset) {
   fill(120, 210, 230, 150);
   ellipse(x - 20, y - 5, 60, 20);
 
-  // moving water shine
   let shine = map(noise(frameCount * 0.03), 0, 1, -15, 15);
   fill(255, 255, 255, 100);
   ellipse(x + shine, y - 8, 35, 8);
@@ -403,18 +392,24 @@ function drawWoodSign(x, y, words) {
 }
 }
 
+
 function moveAnimal(a) {
   a.timer++;
 
-  if (a.timer > 70) {
+  if (a.timer > 45) {
     a.targetX = random(a.minX, a.maxX);
     a.targetY = random(a.minY, a.maxY);
     a.timer = 0;
   }
 
-  a.x = lerp(a.x, a.targetX, 0.02);
-  a.y = lerp(a.y, a.targetY, 0.02);
+  a.x = lerp(a.x, a.targetX, 0.025);
+  a.y = lerp(a.y, a.targetY, 0.025);
+
+  a.x = constrain(a.x, a.minX, a.maxX);
+  a.y = constrain(a.y, a.minY, a.maxY);
 }
+
+
 
 function drawSky() {
   noStroke();
@@ -430,6 +425,7 @@ function drawSky() {
     drawDistantTrees();
   }
 
+  
   function drawFlyingBirds() {
   for (let i = 0; i < 5; i++) {
     let x = (frameCount * 0.4 + i * 180) % (width + 100) - 50;
@@ -443,6 +439,7 @@ function drawSky() {
   }
 }
   
+  
  function drawDistantTrees() {
   for (let x = 30; x < width; x += 110) {
 
@@ -450,43 +447,36 @@ function drawSky() {
     sway += musicLevel * random(-6, 6);
 
     let baseY = height - 190;
-
-    // lighter, faded color (background feel)
     let g = map(noise(x * 0.02), 0, 1, 140, 180);
 
-    // trunk (thin, subtle)
     fill(120, 100, 70, 150);
     rect(x + 4, baseY, 8, 50);
 
-    // tree canopy (layered + soft)
     noStroke();
     fill(120, g, 120, 160);
     ellipse(x + sway, baseY - 20, 70, 50);
     ellipse(x - 15 + sway, baseY - 10, 55, 45);
     ellipse(x + 25 + sway, baseY - 10, 55, 45);
 
-    // add depth layer
     fill(100, g - 20, 100, 120);
     ellipse(x + sway, baseY - 5, 60, 40);
   }
 }
   
+  
   function drawZooEntranceArch() {
   let x = width / 2;
   let y = 150;
 
-  // poles
   fill(120, 75, 40);
   rect(x - 120, y, 18, 120, 6);
   rect(x + 102, y, 18, 120, 6);
 
-  // arch
   noFill();
   stroke(140, 85, 45);
   strokeWeight(18);
   arc(x, y + 10, 240, 130, PI, TWO_PI);
 
-  // sign board
   noStroke();
   fill(180, 100, 45);
   rect(x - 85, y - 45, 170, 45, 12);
@@ -495,12 +485,12 @@ function drawSky() {
   textSize(24);
   text("ZOONIVERSE", x - 78, y - 15);
 
-  // small flags
   drawFlag(x - 105, y - 55, color(255, 100, 100));
   drawFlag(x - 35, y - 75, color(255, 220, 80));
   drawFlag(x + 35, y - 75, color(100, 200, 255));
   drawFlag(x + 105, y - 55, color(150, 230, 120));
 }
+  
   
   function drawFlag(x, y, c) {
   stroke(80);
@@ -516,10 +506,10 @@ function drawSky() {
   rect(0, height - 130, width, 130);
 }
 
+
 function drawCuteSun(x, y) {
   noStroke();
-
-  // soft gradient halo (many layers)
+  
   for (let i = 0; i < 20; i++) {
     let size = 180 - i * 6;
     let alpha = 25 - i * 1.2;
@@ -528,7 +518,6 @@ function drawCuteSun(x, y) {
     ellipse(x, y, size, size);
   }
 
-  // mid glow
   for (let i = 0; i < 12; i++) {
     let size = 120 - i * 4;
     let alpha = 35 - i * 2;
@@ -537,16 +526,15 @@ function drawCuteSun(x, y) {
     ellipse(x, y, size, size);
   }
 
-  // sun body (soft edge)
   fill(255, 185, 85);
   ellipse(x, y, 80, 80);
 }
 
 
+
 function moveCloud(c) {
   c.x += c.speedX;
 
-  // natural up-and-down floating using noise, no sin
   let floatY = map(noise(frameCount * c.speedY + c.offset), 0, 1, -c.moveAmount, c.moveAmount);
   c.y = c.baseY + floatY;
 
@@ -562,6 +550,7 @@ function moveCloud(c) {
     c.offset = random(1000);
   }
 }
+
 
 function drawCloud(c) {
   push();
@@ -592,7 +581,6 @@ function drawCloud(c) {
     ellipse(105, 5, 55, 30);
   }
 
-  // soft bottom shadow
   fill(c.shade - 20, c.shade - 20, c.shade - 20, 80);
   ellipse(45, 12, 90, 20);
 
@@ -634,22 +622,19 @@ function drawSavannaArea(x, y) {
   drawRock(x + 45, y + 145);
   drawRock(x + 95, y + 170);
   drawAcaciaTree(x + 185, y + 35);
-
-  fill(90, 55, 20);
-  textSize(18);
-  text("Lion Savanna", x + 55, y + 25);
 }
+
 
 function drawMeadowArea(x, y) {
   drawHabitatBlob(x + 120, y + 115, 310, 195, color(120, 190, 120), color(155, 220, 145));
 
-  // mud patch
+
   fill(130, 95, 65, 160);
   ellipse(x + 85, y + 135, 95, 45);
   fill(160, 120, 80, 120);
   ellipse(x + 95, y + 130, 55, 20);
 
-  // water pool
+
   fill(80, 170, 210, 170);
   ellipse(x + 180, y + 90, 100, 45);
   fill(255, 255, 255, 80);
@@ -657,28 +642,22 @@ function drawMeadowArea(x, y) {
 
   drawSmallBush(x + 35, y + 150);
   drawSmallBush(x + 210, y + 140);
-
-  fill(40, 90, 45);
-  textSize(18);
-  text("Elephant Wetland", x + 40, y + 25);
 }
+
 
 function drawPeacockArea(x, y) {
   drawHabitatBlob(x + 120, y + 115, 300, 185, color(175, 205, 165), color(215, 190, 230));
 
-  // flower garden
  for (let i = 0; i < 16; i++) {
   let baseX = x + 40 + i * 12;
   let baseY = y + 110 + (i % 4) * 12;
 
-  // 🌿 slow organic movement
   let moveX = map(noise(i * 10 + frameCount * 0.02), 0, 1, -6, 6);
   let moveY = map(noise(i * 20 + frameCount * 0.02), 0, 1, -5, 5);
 
   let fx = baseX + moveX;
   let fy = baseY + moveY;
 
-  // 🌸 soft color variation (NOT random every frame)
   let r = map(noise(i * 30), 0, 1, 180, 255);
   let g = map(noise(i * 40), 0, 1, 120, 220);
   let b = map(noise(i * 50), 0, 1, 160, 255);
@@ -693,39 +672,29 @@ function drawPeacockArea(x, y) {
   ellipse(fx, fy, 5, 5);
 }
 
-  // small decorative path
   fill(220, 195, 150, 160);
   ellipse(x + 120, y + 145, 150, 35);
 
   drawSmallBush(x + 45, y + 145);
   drawSmallBush(x + 200, y + 85);
-
-  fill(70, 45, 100);
-  textSize(18);
-  text("Peacock Garden", x + 55, y + 25);
 }
+
 
 function drawBambooArea(x, y) {
   drawHabitatBlob(x + 125, y + 115, 320, 190, color(120, 190, 120), color(180, 230, 170));
 
-  // bamboo forest - fixed positions, no shaking
   for (let i = 0; i < 8; i++) {
     drawBamboo(x + 25 + i * 32, y + 40 + i * 4);
   }
 
-  // stones
   drawRock(x + 55, y + 155);
   drawRock(x + 215, y + 145);
 
-  // leaf piles
   fill(65, 150, 70, 150);
   ellipse(x + 105, y + 160, 80, 25);
   ellipse(x + 180, y + 95, 70, 22);
-
-  fill(30, 90, 40);
-  textSize(18);
-  text("Panda Bamboo Forest", x + 35, y + 25);
 }
+
 
 function drawGiraffeArea(x, y) {
   drawHabitatBlob(x + 130, y + 115, 325, 195, color(215, 175, 95), color(245, 215, 140));
@@ -734,14 +703,7 @@ function drawGiraffeArea(x, y) {
   drawAcaciaTree(x + 205, y + 20);
   drawAcaciaTree(x + 35, y + 50);
   drawRock(x + 70, y + 155);
-
-  fill(90, 60, 20);
-  textSize(18);
-  text("Giraffe Acacia Land", x + 35, y + 25);
 }
-
-
-
 
 
 
@@ -787,22 +749,17 @@ function drawBigLeaf(x, y) {
 
 function drawBamboo(x, y) {
   noStroke();
-
-  // 🌳 bamboo stem (static, slightly organic shape)
   fill(70, 150, 80);
   rect(x - 4, y, 8, 120, 6);
 
-  // joints (nodes)
   fill(50, 120, 65);
   rect(x - 5, y + 25, 10, 6, 3);
   rect(x - 5, y + 55, 10, 6, 3);
   rect(x - 5, y + 85, 10, 6, 3);
 
-  // soft highlight
   fill(120, 200, 120, 90);
   rect(x - 2, y + 10, 3, 90, 2);
 
-  // 🍃 leaf clusters (slow movement only here)
   drawBambooLeaf(x + 8, y + 30, 1);
   drawBambooLeaf(x - 8, y + 50, -1);
   drawBambooLeaf(x + 10, y + 75, 1);
@@ -810,7 +767,6 @@ function drawBamboo(x, y) {
 }
 
 function drawBambooLeaf(x, y, side) {
-  // 🌿 very slow, gentle movement
   let move = map(noise(frameCount * 0.002 + x), 0, 1, -1.2, 1.2);
 
   push();
@@ -819,7 +775,6 @@ function drawBambooLeaf(x, y, side) {
 
   noStroke();
 
-  // 🍃 main leaf (long + pointed, not round)
   fill(55, 155, 75);
   beginShape();
   vertex(0, 0);
@@ -827,7 +782,6 @@ function drawBambooLeaf(x, y, side) {
   bezierVertex(28, 4, 18, 6, 0, 0);
   endShape();
 
-  // 🌿 inner lighter layer (depth)
   fill(95, 190, 110, 150);
   beginShape();
   vertex(4, 0);
@@ -835,13 +789,13 @@ function drawBambooLeaf(x, y, side) {
   bezierVertex(24, 2, 18, 4, 4, 0);
   endShape();
 
-  // 🌱 center vein
   stroke(35, 110, 55, 180);
   strokeWeight(1.2);
   line(0, 0, 40, 0);
 
   pop();
 }
+
 
 function winkEye(x, y) {
   stroke(0);
@@ -859,10 +813,9 @@ function randomSwing(speed, range, offset) {
   return map(noise(frameCount * speed + offset), 0, 1, -range, range);
 }
 
-// custom tails, no sin()
 
 function drawLionTail(x, y) {
-  let swing = randomSwing(0.02, 14, 10);
+  let swing = randomSwing(0.05, 14, 10);
 
   stroke(218, 150, 65);
   strokeWeight(5);
@@ -874,55 +827,22 @@ function drawLionTail(x, y) {
   ellipse(x + 35, y + swing, 20, 16);
 }
 
-function drawZebraTail(x, y) {
-  let flick = randomSwing(0.05, 14, 220);
-  let lift = randomSwing(0.025, 6, 260);
-
-  // short white tail stem
-  stroke(255);
-  strokeWeight(4);
-  noFill();
-  curve(x - 8, y - 4, x, y, x + 18, y + lift, x + 28, y + flick);
-
-  // black hair tuft at the end, like a real zebra tail
-  stroke(0);
-  strokeWeight(2);
-  line(x + 20, y + lift, x + 31, y + flick - 10);
-  line(x + 20, y + lift, x + 33, y + flick);
-  line(x + 20, y + lift, x + 31, y + flick + 10);
-}
-
-function drawTigerTail(x, y) {
-  let swing = randomSwing(0.025, 16, 400);
-
-  stroke(235, 125, 35);
-  strokeWeight(6);
-  noFill();
-  curve(x - 10, y, x, y, x + 28, y + swing, x + 50, y + swing - 10);
-
-  stroke(0);
-  strokeWeight(3);
-  line(x + 12, y + swing / 3, x + 20, y + swing / 2);
-  line(x + 30, y + swing, x + 38, y + swing - 5);
-}
 
 function drawGiraffeTail(x, y) {
-  let swing = randomSwing(0.018, 8, 620);
-  let drop = randomSwing(0.012, 5, 700);
+  let swing = randomSwing(0.04, 8, 620);
+  let drop = randomSwing(0.025, 5, 700);
 
-  // giraffe tail is longer, thinner, and hangs downward
   stroke(230, 180, 80);
   strokeWeight(3);
   noFill();
   curve(x - 5, y - 5, x, y, x + 18, y + 20 + drop, x + 25, y + 35 + swing);
 
-  // dark tuft at the lower end
   noStroke();
   fill(70, 45, 25);
   ellipse(x + 23, y + 35 + swing, 10, 24);
 }
 
-// custom legs
+
 
 function drawLionLegs(x, y) {
   let step = frameCount % 40 < 20 ? 5 : -5;
@@ -944,6 +864,7 @@ function drawLionLegs(x, y) {
   ellipse(x + 22, y + 56, 28, 10);
 }
 
+
 function drawElephantLegs(x, y) {
   let step = frameCount % 40 < 20 ? 6 : -6;
 
@@ -962,6 +883,7 @@ function drawElephantLegs(x, y) {
   ellipse(x - 42, y + 63 + step, 20, 7);
   ellipse(x + 38, y + 63 - step, 20, 7);
 }
+
 
 function drawPeacockLegs(x, y) {
   let step = frameCount % 40 < 20 ? 5 : -5;
@@ -1012,7 +934,8 @@ function drawGiraffeLegs(x, y) {
   ellipse(x + 38, y + 75 - step, 20, 7);
 }
 
-// animals
+
+
 
 function drawLion(x, y) {
    let bounce = musicLevel*30;
@@ -1072,38 +995,32 @@ function drawElephant(x, y) {
 
 // ears
 fill(125, 135, 145);
-ellipse(x - 42, y - 8, 55, 70);   // back ear
-
+ellipse(x - 42, y - 8, 55, 70);  
 fill(150, 160, 165);
-ellipse(x - 68, y - 8, 50, 65);   // front ear
+ellipse(x - 68, y - 8, 50, 65);  
 
 fill(175, 180, 185);
-ellipse(x - 70, y - 8, 26, 38);   // inner ear
+ellipse(x - 70, y - 8, 26, 38);  
 
-  // trunk
   stroke(150, 160, 165);
   strokeWeight(16);
   noFill();
   curve(x - 90, y - 20, x - 85, y + 5, x - 90, y + 45, x - 65, y + 60);
 
-  // trunk tip
+
   noStroke();
   fill(150, 160, 165);
   ellipse(x - 88, y + 48, 18, 14);
 
-  // tusk
   stroke(255);
   strokeWeight(4);
   line(x - 80, y + 10, x - 105, y + 25);
 
-  // eye
   fill(0);
   winkEye(x - 75, y - 20);
 
-  // legs
   drawElephantLegs(x, y);
 
-  // tail
   drawElephantTail(x + 60, y - 5);
   
 }
@@ -1123,7 +1040,7 @@ function drawElephantLegs(x, y) {
 }
 
 function drawElephantTail(x, y) {
-  let swing = randomSwing(0.02, 8, 900);
+  let swing = randomSwing(0.05, 8, 900);
 
   stroke(120);
   strokeWeight(3);
@@ -1142,7 +1059,7 @@ function drawPeacock(x, y) {
   fill(0, 35);
   ellipse(x + 5, y + 62, 100, 18);
 
-  // tail feathers
+
   let open = randomSwing(0.01, 5, 1200);
 
   fill(40, 150, 100);
@@ -1152,7 +1069,6 @@ function drawPeacock(x, y) {
   ellipse(x - 55, y - 15 + open, 25, 75);
   ellipse(x + 55, y - 15 + open, 25, 75);
 
-  // feather eyes
   fill(30, 80, 180);
   ellipse(x, y - 55 + open, 14, 14);
   ellipse(x - 30, y - 50 + open, 12, 12);
@@ -1165,25 +1081,19 @@ function drawPeacock(x, y) {
   ellipse(x - 30, y - 50 + open, 5, 5);
   ellipse(x + 30, y - 50 + open, 5, 5);
 
-  // body
+
   fill(30, 100, 180);
   ellipse(x, y + 10, 45, 55);
 
-  // neck
   ellipse(x - 10, y - 25, 25, 55);
-
-  // head
   ellipse(x - 15, y - 55, 28, 25);
 
-  // beak
   fill(230, 170, 40);
   triangle(x - 30, y - 55, x - 45, y - 50, x - 30, y - 47);
 
-  // eye
+
   fill(0);
   winkEye(x - 20, y - 60);
-
-  // crest
   stroke(30, 100, 180);
   strokeWeight(2);
   line(x - 18, y - 68, x - 22, y - 82);
@@ -1198,6 +1108,7 @@ function drawPeacock(x, y) {
 
   drawPeacockLegs(x, y);
 }
+
 
 function drawPeacockLegs(x, y) {
   let step = frameCount % 40 < 20 ? 3 : -3;
@@ -1233,20 +1144,14 @@ function drawPanda(x, y) {
   ellipse(x - 62, y - 27, 18, 22);
   ellipse(x - 42, y - 27, 18, 22);
 
-
-// LEFT EYE (keep wink exactly as before)
 fill(255);
 winkEye(x - 62, y - 27);
-
-// RIGHT EYE (same, just add highlight)
 fill(0);
 ellipse(x - 42, y - 27, 6, 6);
 
-// small white highlight dot
 fill(255);
 ellipse(x - 40, y - 29, 2, 2);
 
-// nose
 fill(0);
 ellipse(x - 52, y - 12, 8, 6);
   fill(0);
@@ -1301,14 +1206,14 @@ function drawGiraffe(x, y) {
   drawGiraffeTail(x + 50, y - 5);
 }
 
+
 function mousePressed() {
-  // start background music on first click (browser requirement)
+
   if (!bgMusic.isPlaying()) {
     bgMusic.loop();
     bgMusic.setVolume(0.2);
   }
 
-  // ONLY allow animal sounds in zoo page
   if (mode === 1) {
 
     if (dist(mouseX, mouseY, lion.x, lion.y) < 75) {
@@ -1338,9 +1243,9 @@ function mousePressed() {
   }
 }
 
+
 function keyPressed() {
 
-  // go to game
   if (key === "g" || key === "G") {
     mode = 2;
 
@@ -1352,12 +1257,10 @@ function keyPressed() {
     confetti = [];
     setupFoods();
   }
-
-  // 🔙 return to zoo
+  
   if (key === "r" || key === "R") {
     mode = 1;
 
-    // optional resets (keeps things clean)
     draggingFood = null;
     sadLionTimer = 0;
     feedingSuccess = false;
@@ -1373,6 +1276,7 @@ function setupFoods() {
     { name: "shoes", x: 570, y: height - 90, good: false },
     { name: "chicken", x: 700, y: height - 90, good: true }
   ];
+  
   
   function makeGameLion(x, y, s) {
   return {
@@ -1473,10 +1377,9 @@ function drawSavannaGameBackground() {
     push();
   noStroke();}
 
-  // moving clouds
+
   drawSunsetClouds();
 
-  // only draw the big sun while confetti is active
   if (confettiTimer > 0) {
     sunY -= 6;
 
@@ -1514,6 +1417,7 @@ function drawSavannaGameBackground() {
   drawRock(width - 130, height - 130);
 }
 
+
 function drawSunsetClouds() {
   for (let i = 0; i < 6; i++) {
     let x = (frameCount * 0.3 + i * 220) % (width + 200) - 100;
@@ -1536,7 +1440,6 @@ function drawSunsetClouds() {
 
 function drawDawnSky() {
 
-  // 🌧️ SAD MODE (dark storm sky)
   if (sadLionTimer > 0) {
     for (let y = 0; y < height; y++) {
       let inter = map(y, 0, height, 0, 1);
@@ -1552,11 +1455,9 @@ function drawDawnSky() {
 
     noStroke();
 
-    drawRainClouds(); // ⭐ rain effect
-    return; // stop normal sky
+    drawRainClouds(); 
   }
 
-  // 🌅 NORMAL DAWN / SUNRISE
   let sunriseAmount = map(confettiTimer, 0, 300, 0, 1);
   sunriseAmount = constrain(sunriseAmount, 0, 1);
 
@@ -1582,19 +1483,18 @@ function drawDawnSky() {
   noStroke();
 }
 
+
 function drawRainClouds() {
   for (let i = 0; i < 5; i++) {
 
     let x = (frameCount * 0.5 + i * 200) % (width + 200) - 100;
     let y = 80 + i * 20;
 
-    // cloud
     fill(80, 90, 120, 200);
     ellipse(x, y, 100, 40);
     ellipse(x + 40, y - 10, 90, 50);
     ellipse(x + 90, y, 110, 45);
-
-    // rain
+    
     stroke(150, 180, 255, 180);
     strokeWeight(2);
 
@@ -1609,6 +1509,7 @@ function drawRainClouds() {
   }
 }
 
+
 function drawFood(f) {
   push();
   translate(f.x, f.y);
@@ -1618,29 +1519,22 @@ function drawFood(f) {
   ellipse(0, 28, 55, 10);
 
  if (f.name === "meat") {
-  // shadow
   fill(0, 35);
   ellipse(3, 22, 58, 10);
 
-  // bone
   fill(245, 225, 195);
   rect(-34, -5, 68, 12, 6);
   ellipse(-38, 1, 18, 18);
   ellipse(38, 1, 18, 18);
 
-  // meat body
   fill(160, 35, 30);
   ellipse(0, 0, 55, 38);
 
-  // darker edge
   fill(120, 25, 25, 90);
   ellipse(5, 5, 42, 25);
-
-  // fat layer
   fill(255, 210, 180, 180);
   ellipse(-10, -8, 25, 10);
 
-  // highlight
   fill(255, 120, 100, 130);
   ellipse(-8, -10, 18, 8);
 
@@ -1648,15 +1542,12 @@ function drawFood(f) {
 }
 
 if (f.name === "grass") {
-  // shadow
   fill(0, 35);
   ellipse(0, 24, 50, 10);
 
-  // base
   fill(70, 170, 90);
   ellipse(0, 10, 30, 10);
 
-  // three triangle blades
   noStroke();
 
   fill(60, 160, 80);
@@ -1688,27 +1579,20 @@ if (f.name === "grass") {
   }
 
 if (f.name === "shoes") {
-  // shadow
   fill(0, 35);
   ellipse(5, 28, 60, 10);
 
   noStroke();
 
-  // left boot
   fill(110, 75, 45);
-  rect(-28, -5, 22, 30, 6);   // shaft
-  ellipse(-17, 25, 35, 18);   // sole
+  rect(-28, -5, 22, 30, 6);  
+  ellipse(-17, 25, 35, 18);  
 
-  // right boot
   rect(8, -5, 22, 30, 6);
   ellipse(20, 25, 35, 18);
-
-  // darker sole
   fill(70, 50, 35);
   ellipse(-17, 28, 35, 8);
   ellipse(20, 28, 35, 8);
-
-  // highlight
   fill(160, 120, 80, 120);
   rect(-25, -2, 10, 10, 3);
   rect(11, -2, 10, 10, 3);
@@ -1736,7 +1620,6 @@ function drawSadLionPopup() {
 
   push();
 
-  // 🔴 RESET any previous transforms (IMPORTANT)
   resetMatrix();
 
   let cx = width / 2;
@@ -1747,19 +1630,16 @@ function drawSadLionPopup() {
 
   noStroke();
 
-  // background bubble
   fill(255, 240, 200, 220);
   ellipse(0, 0, 130, 130);
 
-  // mane
   fill(110, 65, 30);
   ellipse(0, 0, 105, 105);
 
-  // face
+
   fill(235, 175, 85);
   ellipse(0, 0, 78, 72);
 
-  // ears
   fill(110, 65, 30);
   ellipse(-42, -42, 28, 28);
   ellipse(42, -42, 28, 28);
@@ -1768,32 +1648,26 @@ function drawSadLionPopup() {
   ellipse(-42, -42, 14, 14);
   ellipse(42, -42, 14, 14);
 
-  // sad eyes
   stroke(0);
   strokeWeight(2);
   noFill();
   arc(-18, -10, 18, 12, PI, TWO_PI);
   arc(18, -10, 18, 12, PI, TWO_PI);
 
-  // tears
   noStroke();
   fill(80, 170, 255, 220);
   ellipse(-18, 5, 8, 14);
   ellipse(18, 5, 8, 14);
 
-  // nose
   fill(60, 35, 20);
   triangle(-7, 8, 7, 8, 0, 16);
 
-  // mouth
   stroke(60, 35, 20);
   strokeWeight(2);
   noFill();
   arc(0, 33, 28, 18, PI, TWO_PI);
 
   pop();
-
-  // text (centered separately)
   push();
   resetMatrix();
 
