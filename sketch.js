@@ -39,20 +39,21 @@ bgMusic = loadSound("Backgroundmusic.mp3");
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+   frameRate(30);
   splash = new Splash();
   
   mySlider = createSlider(0,100,50) // gui example. use the .position method in the draw function
   amp = new p5.Amplitude();
   amp.setInput(bgMusic);
 lion = makeAnimal(width * 0.18, height * 0.32, width * 0.12, width * 0.24, height * 0.28, height * 0.36);
+  
+elephant = makeAnimal(width * 0.47, height * 0.32, width * 0.43, width * 0.51, height * 0.29, height * 0.35);
 
-elephant = makeAnimal(width * 0.47, height * 0.32, width * 0.40, width * 0.54, height * 0.28, height * 0.36);
-
-peacock = makeAnimal(width * 0.76, height * 0.35, width * 0.69, width * 0.83, height * 0.31, height * 0.39);
+peacock = makeAnimal(width * 0.76, height * 0.35, width * 0.72, width * 0.80, height * 0.32, height * 0.38);
 
 panda = makeAnimal(width * 0.32, height * 0.57, width * 0.25, width * 0.39, height * 0.52, height * 0.61);
-
-giraffe = makeAnimal(width * 0.64, height * 0.56, width * 0.57, width * 0.74, height * 0.50, height * 0.60);
+  
+giraffe = makeAnimal(width * 0.64, height * 0.56, width * 0.60, width * 0.70, height * 0.51, height * 0.58);
 
   foodX = width / 2;
   foodY = height - 80;
@@ -64,8 +65,8 @@ for (let i = 0; i < 12; i++) {
     y: random(40, 150),
     baseY: random(40, 150),
     size: random(0.6, 1.5),
-    speedX: random(0.05, 0.25),
-    speedY: random(0.005, 0.005),
+    speedX: random(0.25, 0.65),
+    speedY: random(0.05, 0.05),
     moveAmount: random(4, 14),
     shade: random(235, 255),
     shape: floor(random(4)),
@@ -119,13 +120,14 @@ function draw() {
 }
 
 function drawZoo() {
-for (let y = 0; y < height; y++) {
+for (let y = 0; y < height; y+=3) {
   let topColor = color(80, 150, 255);
   let bottomColor = color(255, 180, 210);
   let inter = map(y, 0, height, 0, 1);
   let c = lerpColor(topColor, bottomColor, inter);
 
   stroke(c);
+  strokeWeight(3);
   line(0, y, width, y);
 }
 
@@ -141,6 +143,7 @@ drawPeacockArea(width * 0.66, topY);
 
 drawBambooArea(width * 0.20, bottomY);
 drawGiraffeArea(width * 0.52, bottomY);
+  drawSmallPond(width * 0.73, bottomY + 85);
 
   moveAnimal(lion);
   moveAnimal(elephant);
@@ -164,7 +167,6 @@ drawPeacock(peacock.x, peacock.y);
 drawZooLamp(width * 0.08, height * 0.55);
 drawZooLamp(width * 0.92, height * 0.55);
   drawButterflies();
-drawSmallPond(width * 0.82, height * 0.58);
     
 }
   
@@ -318,6 +320,20 @@ function drawButterflies() {
   drawButterfly(580, 390, 0.85, color(255, 140, 180), 650);
   drawButterfly(650, 420, 0.7, color(100, 220, 200), 700);
   drawButterfly(720, 400, 0.6, color(255, 200, 120), 750);
+  
+drawButterfly(width * 0.82, height * 0.25, 0.75, color(255, 180, 120), 820);
+drawButterfly(width * 0.88, height * 0.34, 0.65, color(180, 140, 255), 870);
+drawButterfly(width * 0.92, height * 0.47, 0.8, color(120, 220, 200), 920);
+drawButterfly(width * 0.84, height * 0.55, 0.6, color(255, 210, 100), 970);
+drawButterfly(width * 0.95, height * 0.28, 0.55, color(255, 130, 180), 1020);
+drawButterfly(width * 0.78, height * 0.22, 0.75, color(255, 180, 120), 820);
+drawButterfly(width * 0.84, height * 0.30, 0.65, color(180, 140, 255), 870);
+drawButterfly(width * 0.90, height * 0.38, 0.8, color(120, 220, 200), 920);
+drawButterfly(width * 0.96, height * 0.46, 0.6, color(255, 210, 100), 970);
+drawButterfly(width * 0.82, height * 0.54, 0.55, color(255, 130, 180), 1020);
+drawButterfly(width * 0.92, height * 0.60, 0.7, color(150, 230, 140), 1070);
+drawButterfly(width * 0.98, height * 0.25, 0.6, color(120, 190, 255), 1120);
+drawButterfly(width * 0.88, height * 0.52, 0.85, color(255, 160, 210), 1170);
 }
 
   
@@ -362,18 +378,20 @@ function drawButterfly(startX, startY, s, wingColor, offset) {
 
   
   
-  function drawSmallPond(x, y) {
+ function drawSmallPond(x, y) {
   noStroke();
-
-  fill(80, 180, 220, 180);
-  ellipse(x, y, 130, 60);
+  fill(80, 180, 220, 190);
+  ellipse(x, y, 180, 85);
 
   fill(120, 210, 230, 150);
-  ellipse(x - 20, y - 5, 60, 20);
+  ellipse(x - 25, y - 5, 90, 35);
 
-  let shine = map(noise(frameCount * 0.03), 0, 1, -15, 15);
+  fill(210, 180, 130, 120);
+  ellipse(x + 30, y + 25, 140, 40);
+
+  let shine = map(noise(frameCount * 0.02), 0, 1, -25, 25);
   fill(255, 255, 255, 100);
-  ellipse(x + shine, y - 8, 35, 8);
+  ellipse(x + shine, y - 10, 55, 10);
 }
 
 function drawWoodSign(x, y, words) {
@@ -542,7 +560,7 @@ function moveCloud(c) {
     c.x = -150;
     c.baseY = random(40, 150);
     c.size = random(0.6, 1.5);
-    c.speedX = random(0.2, 0.9);
+    c.speedX = random(0.35, 0.9);
     c.speedY = random(0.01, 0.04);
     c.moveAmount = random(4, 14);
     c.shade = random(235, 255);
@@ -1268,14 +1286,14 @@ function keyPressed() {
 }
 
 function setupFoods() {
-  foods = [
-    { name: "meat", x: 120, y: height - 90, good: true },
-    { name: "grass", x: 220, y: height - 90, good: false },
-    { name: "ice cream", x: 330, y: height - 90, good: false },
-    { name: "iphone", x: 450, y: height - 90, good: false },
-    { name: "shoes", x: 570, y: height - 90, good: false },
-    { name: "chicken", x: 700, y: height - 90, good: true }
-  ];
+foods = [
+  { name: "meat", x: width * 0.28, y: height - 115, good: true },
+  { name: "grass", x: width * 0.38, y: height - 115, good: false },
+  { name: "ice cream", x: width * 0.48, y: height - 115, good: false },
+  { name: "iphone", x: width * 0.58, y: height - 115, good: false },
+  { name: "shoes", x: width * 0.68, y: height - 115, good: false },
+  { name: "chicken", x: width * 0.78, y: height - 115, good: true }
+];
   
   
   function makeGameLion(x, y, s) {
@@ -1289,22 +1307,21 @@ function setupFoods() {
   };
 }
   
-  function moveGameLion(l) {
-  l.x = lerp(l.x, l.targetX, l.speed);
-  l.y = lerp(l.y, l.targetY, l.speed);
+function moveGameLion(l) {
+  l.x = lerp(l.x, l.targetX, 0.01);
+  l.y = lerp(l.y, l.targetY, 0.01);
 
-  if (dist(l.x, l.y, l.targetX, l.targetY) < 10) {
-    l.targetX = random(150, width - 150);
-    l.targetY = random(height / 2 - 20, height - 230);
-    l.speed = random(0.008, 0.025);
+  if (dist(l.x, l.y, l.targetX, l.targetY) < 15) {
+    l.targetX = random(180, width - 180);
+    l.targetY = random(height * 0.45, height - 260);
   }
 }
 
-  gameLions = [
-    makeGameLion(width / 2, height / 2 + 40, 1.0),
-    makeGameLion(width / 2 - 180, height / 2 + 80, 0.75),
-    makeGameLion(width / 2 + 190, height / 2 + 75, 0.85)
-  ];
+gameLions = [
+  makeGameLion(width / 2, height / 2 + 60, 2.2),
+  makeGameLion(width / 2 - width * 0.25, height / 2 + 100, 1.6),
+  makeGameLion(width / 2 + width * 0.25, height / 2 + 90, 1.8)
+];
 }
 
 function moveGameLion(l) {
@@ -1347,10 +1364,11 @@ text("Press R to return to zoo", 30, 70);
   translate(gameLions[i].x, gameLions[i].y);
   scale(gameLions[i].size);
   drawLion(0, 0);
-   drawSadLionPopup();
   pop();
 }
 
+     drawSadLionPopup();
+  
   for (let i = 0; i < foods.length; i++) {
     drawFood(foods[i]);
   }
@@ -1381,7 +1399,7 @@ function drawSavannaGameBackground() {
   drawSunsetClouds();
 
   if (confettiTimer > 0) {
-    sunY -= 6;
+    sunY -= 12;
 
     if (sunY < height * 0.15) {
       sunY = height * 0.15;
@@ -1419,20 +1437,27 @@ function drawSavannaGameBackground() {
 
 
 function drawSunsetClouds() {
-  for (let i = 0; i < 6; i++) {
-    let x = (frameCount * 0.3 + i * 220) % (width + 200) - 100;
-    let y = 70 + i * 35;
+  for (let i = 0; i < 5; i++) {
+    let x = (frameCount * 0.45 + i * 300) % (width + 350) - 180;
+    let y = 70 + i * 38;
 
     push();
     translate(x, y);
+    scale(1.15 + i * 0.05);
 
     noStroke();
-    fill(255, 230, 200, 180);
 
-    ellipse(0, 0, 90, 35);
-    ellipse(40, -12, 80, 45);
-    ellipse(85, 0, 100, 38);
-    ellipse(130, 5, 70, 30);
+    fill(210, 170, 160, 90);
+    ellipse(45, 18, 210, 42);
+
+    fill(255, 225, 205, 210);
+    ellipse(0, 5, 110, 45);
+    ellipse(55, -12, 120, 65);
+    ellipse(125, -5, 145, 58);
+    ellipse(190, 8, 110, 42);
+    fill(255, 245, 225, 160);
+    ellipse(50, -18, 80, 35);
+    ellipse(125, -18, 95, 34);
 
     pop();
   }
@@ -1441,7 +1466,7 @@ function drawSunsetClouds() {
 function drawDawnSky() {
 
   if (sadLionTimer > 0) {
-    for (let y = 0; y < height; y++) {
+    for (let y = 0; y < height; y+=3) {
       let inter = map(y, 0, height, 0, 1);
 
       let topColor = color(10, 20, 60);
@@ -1450,18 +1475,22 @@ function drawDawnSky() {
       let c = lerpColor(topColor, bottomColor, inter);
 
       stroke(c);
+      strokeWeight(3);
       line(0, y, width, y);
     }
 
     noStroke();
 
     drawRainClouds(); 
+    return;
   }
+let sunriseAmount = 0;
 
-  let sunriseAmount = map(confettiTimer, 0, 300, 0, 1);
-  sunriseAmount = constrain(sunriseAmount, 0, 1);
+if (confettiTimer > 0) {
+  sunriseAmount = 1;
+}
 
-  for (let y = 0; y < height; y++) {
+  for (let y = 0; y < height; y+=3) {
     let inter = map(y, 0, height, 0, 1);
 
     let dawnTop = color(25, 45, 100);
@@ -1477,6 +1506,7 @@ function drawDawnSky() {
     let finalColor = lerpColor(dawnColor, sunriseColor, sunriseAmount);
 
     stroke(finalColor);
+    strokeWeight(3);
     line(0, y, width, y);
   }
 
@@ -1485,34 +1515,92 @@ function drawDawnSky() {
 
 
 function drawRainClouds() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
+    let x = (frameCount * 0.7 + i * 330) % (width + 350) - 180;
+    let y = 75 + i * 35;
 
-    let x = (frameCount * 0.5 + i * 200) % (width + 200) - 100;
-    let y = 80 + i * 20;
-
-    fill(80, 90, 120, 200);
-    ellipse(x, y, 100, 40);
-    ellipse(x + 40, y - 10, 90, 50);
-    ellipse(x + 90, y, 110, 45);
-    
-    stroke(150, 180, 255, 180);
-    strokeWeight(2);
-
-    for (let r = 0; r < 12; r++) {
-      let rx = x + random(0, 100);
-      let ry = y + random(10, 80);
-
-      line(rx, ry, rx, ry + 10);
-    }
+    push();
+    translate(x, y);
 
     noStroke();
+
+    fill(35, 45, 80, 180);
+    ellipse(70, 22, 230, 55);
+
+    fill(70, 80, 115, 230);
+    ellipse(0, 5, 120, 48);
+    ellipse(60, -14, 130, 70);
+    ellipse(135, -8, 155, 62);
+    ellipse(205, 8, 120, 48);
+    
+    fill(95, 105, 140, 160);
+    ellipse(65, -22, 80, 36);
+    ellipse(135, -25, 95, 38);
+
+    for (let r = 0; r < 26; r++) {
+      let rx = noise(r * 8 + i * 100) * 240;
+      let speed = 5 + noise(r * 20) * 8;
+      let fall = (frameCount * speed + r * 45 + i * 80) % (height - 170);
+
+      let ry = 45 + fall;
+
+      let drift = map(noise(frameCount * 0.01 + r * 30), 0, 1, -18, 18);
+
+      let dropSize = map(noise(r * 13 + i), 0, 1, 0.55, 1.15);
+
+      drawRaindrop(rx + drift, ry, dropSize);
+
+      if (y + ry > height - 145 && y + ry < height - 120) {
+        drawRainSplash(rx + drift, height - y - 120, dropSize);
+      }
+    }
+
+    pop();
   }
+
+  noStroke();
+}
+
+function drawRaindrop(x, y, s) {
+  push();
+  translate(x, y);
+  scale(s);
+
+  noStroke();
+
+  fill(130, 185, 255, 170);
+
+  beginShape();
+  vertex(0, -12);
+  bezierVertex(8, -3, 10, 5, 5, 11);
+  bezierVertex(1, 15, -6, 14, -9, 8);
+  bezierVertex(-12, 2, -7, -5, 0, -12);
+  endShape(CLOSE);
+
+  pop();
+}
+
+function drawRainSplash(x, y, s) {
+  push();
+  translate(x, y);
+  scale(s);
+
+  noFill();
+  stroke(160, 205, 255, 120);
+  strokeWeight(1.5);
+
+  arc(0, 0, 18, 6, PI, TWO_PI);
+  arc(-8, 2, 10, 4, PI, TWO_PI);
+  arc(8, 2, 10, 4, PI, TWO_PI);
+
+  pop();
 }
 
 
 function drawFood(f) {
   push();
   translate(f.x, f.y);
+  scale(1.5);
 
   noStroke();
   fill(0, 35);
@@ -1700,34 +1788,41 @@ function mouseReleased() {
       let mouthX = l.x - 55 * l.size;
       let mouthY = l.y + 8 * l.size;
 
-      if (dist(draggingFood.x, draggingFood.y, mouthX, mouthY) < 55 * l.size) {
+      if (dist(draggingFood.x, draggingFood.y, mouthX, mouthY) < 90 * l.size) {
         fedLion = true;
 
         if (draggingFood.good) {
           feedingSuccess = true;
-          
-          sunY = height +200;
-          
-          if(!cheerSound.isPlaying()){
+          sunY = height + 200;
+
+          if (!cheerSound.isPlaying()) {
             cheerSound.play();
           }
+
           makeConfetti();
         } else {
-          if(sadLionTimer <=0){
-            sadLionTimer = 180;
+          if (sadLionTimer <= 0) {
+            sadLionTimer = 90;
           }
-        if(!lionSound.isPlaying()){
-          lionSound.play();
+
+          if (!lionSound.isPlaying()) {
+            lionSound.play();
+          }
         }
-        }
+
         setupFoods();
         break;
       }
     }
 
+    if (!fedLion) {
+      setupFoods(); 
+    }
+
     draggingFood = null;
   }
 }
+
 
 function drawBigLion(x, y) {
   noStroke();
@@ -1760,9 +1855,9 @@ function drawBigLion(x, y) {
 
 function makeConfetti() {
   confetti = [];
-  confettiTimer = 300;
+  confettiTimer = 90;
   
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 45; i++) {
     confetti.push({
       x: random(width),
       y: random(-100, 0),

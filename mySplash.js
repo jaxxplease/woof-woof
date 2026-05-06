@@ -22,7 +22,7 @@ class Splash {
   this.name = createDiv("Jaxx Liu");
   this.name.position(this.splashBorder+20, this.splashBorder+60);
   
-  this.info = createDiv("Welcome to Zooniverse~ <p> It's a little zoo where you can interact with the animals. Click around to hear animals, watch them bounce and move, and then press G to feed the lions. I've used music visualizer, keypress, mousepress, etc. to make it as interactive as possible and to create a reactive little world that's fun and silly.<p> <a href=https://editor.p5js.org/jaxxplease/sketches/mrgen9QId>view code</a>");
+  this.info = createDiv("Welcome to Zooniverse~ <p> It's a little zoo where you can interact with the animals. Click around to hear animals, watch them bounce and move, and then press G to feed the lions. I've used music visualizer, keypress, mousepress, etc. to make it as interactive as possible and to create a reative little world that's fun and silly.<p> <a href=https://editor.p5js.org/jaxxplease/sketches/mrgen9QId>view code</a>");
   
   this.info.position(this.splashBorder+20, this.splashBorder+100);
   this.info.size(windowWidth-this.splashBorder*2-50, windowHeight-this.splashBorder*2-50)
