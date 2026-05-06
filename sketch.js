@@ -44,12 +44,12 @@ function setup() {
   mySlider = createSlider(0,100,50) // gui example. use the .position method in the draw function
   amp = new p5.Amplitude();
   amp.setInput(bgMusic);
+lion = makeAnimal(width * 0.18, height * 0.32, width * 0.12, width * 0.25, height * 0.28, height * 0.36);
+elephant = makeAnimal(width * 0.47, height * 0.32, width * 0.40, width * 0.55, height * 0.28, height * 0.36);
+peacock = makeAnimal(width * 0.76, height * 0.35, width * 0.69, width * 0.84, height * 0.31, height * 0.39);
 
-  lion = makeAnimal(170, 285, 110, 240, 250, 320);
-elephant = makeAnimal(430, 285, 370, 520, 250, 320);
-peacock = makeAnimal(690, 285, 630, 780, 250, 320);
-  panda = makeAnimal(260, 535, 210, 350, 505, 570);
-  giraffe = makeAnimal(570, 520, 520, 680, 490, 560);
+panda = makeAnimal(width * 0.32, height * 0.57, width * 0.25, width * 0.40, height * 0.52, height * 0.61);
+giraffe = makeAnimal(width * 0.64, height * 0.56, width * 0.57, width * 0.75, height * 0.50, height * 0.60);
 
   foodX = width / 2;
   foodY = height - 80;
@@ -134,12 +134,15 @@ for (let y = 0; y < height; y++) {
 noStroke();
   drawSky();
   drawZooDecorations();
+let topY = height * 0.22;
+let bottomY = height * 0.47;
 
-  drawSavannaArea(80, 160);
-  drawMeadowArea(340, 160);
-  drawPeacockArea(600, 160);
-  drawBambooArea(160, 420);
-  drawGiraffeArea(500, 420);
+drawSavannaArea(width * 0.08, topY);
+drawMeadowArea(width * 0.37, topY);
+drawPeacockArea(width * 0.66, topY);
+
+drawBambooArea(width * 0.20, bottomY);
+drawGiraffeArea(width * 0.52, bottomY);
 
   moveAnimal(lion);
   moveAnimal(elephant);
@@ -160,10 +163,10 @@ drawPeacock(peacock.x, peacock.y);
   function drawZooDecorations() {
   drawWindPlants();
   drawPebblePath();
-  drawZooLamp(40, 380);
-  drawZooLamp(width - 70, 380);
+drawZooLamp(width * 0.08, height * 0.55);
+drawZooLamp(width * 0.92, height * 0.55);
   drawButterflies();
-  drawSmallPond(720, 450);
+drawSmallPond(width * 0.82, height * 0.58);
     
 }
   
@@ -246,19 +249,62 @@ function drawPebblePath() {
 }
   
   function drawZooLamp(x, y) {
-  stroke(80);
+  noStroke();
+
+  // soft ground shadow
+  fill(0, 35);
+  ellipse(x, y + 94, 45, 12);
+
+  // pole
+  fill(70, 55, 45);
+  rect(x - 4, y, 8, 95, 4);
+
+  // pole highlight
+  fill(120, 95, 70, 120);
+  rect(x - 2, y + 5, 2, 85, 2);
+
+  // base
+  fill(80, 60, 45);
+  ellipse(x, y + 95, 32, 12);
+  rect(x - 12, y + 82, 24, 14, 4);
+
+  // hanging arm
+  stroke(70, 55, 45);
   strokeWeight(5);
-  line(x, y, x, y + 90);
+  noFill();
+  arc(x + 18, y + 5, 45, 35, PI, TWO_PI);
 
   noStroke();
-  fill(255, 240, 150, 120);
-  ellipse(x, y - 8, 45, 45);
 
-  fill(70);
-  rect(x - 15, y - 35, 30, 30, 6);
+  // glow
+  fill(255, 220, 120, 45);
+  ellipse(x + 38, y - 12, 75, 75);
+  fill(255, 225, 140, 70);
+  ellipse(x + 38, y - 12, 48, 48);
 
-  fill(255, 230, 120);
-  ellipse(x, y - 20, 18, 18);
+  // lamp top
+  fill(60, 45, 35);
+  triangle(x + 18, y - 22, x + 58, y - 22, x + 38, y - 42);
+
+  // glass
+  fill(255, 235, 160, 190);
+  rect(x + 22, y - 22, 32, 38, 8);
+
+  // glass highlight
+  fill(255, 255, 230, 130);
+  ellipse(x + 32, y - 9, 8, 22);
+
+  // frame lines
+  stroke(60, 45, 35);
+  strokeWeight(2);
+  line(x + 22, y - 2, x + 54, y - 2);
+  line(x + 32, y - 22, x + 32, y + 16);
+  line(x + 44, y - 22, x + 44, y + 16);
+
+  // bottom cap
+  noStroke();
+  fill(60, 45, 35);
+  rect(x + 20, y + 13, 36, 8, 4);
 }
 
 function drawButterflies() {
@@ -284,11 +330,11 @@ function drawButterflies() {
 }
 
 function drawButterfly(startX, startY, s, wingColor, offset) {
-  let moveX = map(noise(frameCount * 0.008 + offset), 0, 1, -120, 120);
-  moveX += musicLevel * random(-30,30);
+  let moveX = map(noise(frameCount * 0.008 + offset), 0, 1, -220, 220);
+  moveX += musicLevel * 60;
   
-  let moveY = map(noise(frameCount * 0.012 + offset + 200), 0, 1, -80, 80);
-  moveY += musicLevel * random(-20,20);
+  let moveY = map(noise(frameCount * 0.012 + offset + 200), 0, 1, -140, 140);
+  moveY += musicLevel * 40;
   
   let flap = map(noise(frameCount * 0.12 + offset), 0, 1, -9, 9);
   flap += musicLevel*40
@@ -298,7 +344,7 @@ function drawButterfly(startX, startY, s, wingColor, offset) {
   
 
   push();
-  translate(startX + moveX, startY + moveY);
+ translate(startX + moveX, startY + moveY + 40);;
   scale(s + musicLevel*2);
 
   noStroke();
@@ -553,83 +599,151 @@ function drawCloud(c) {
   pop();
 }
 
-function drawSavannaArea(x, y) {
+function drawHabitatBlob(cx, cy, w, h, c1, c2) {
   noStroke();
-  fill(245, 205, 115);
-  ellipse(x + 120, y + 110, 260, 170);
+  fill(0, 25);
+  ellipse(cx + 8, cy + 12, w * 1.02, h * 0.95);
 
-  drawRock(x + 35, y + 135);
-  drawTree(x + 190, y + 45);
 
-  fill(80, 50, 20);
+  fill(c1);
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += 0.35) {
+    let r = 1 + map(noise(cx * 0.01 + cos(a), cy * 0.01 + sin(a)), 0, 1, -0.18, 0.18);
+    let x = cx + cos(a) * w * 0.5 * r;
+    let y = cy + sin(a) * h * 0.5 * r;
+    curveVertex(x, y);
+  }
+  endShape(CLOSE);
+
+  fill(c2);
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += 0.4) {
+    let r = 1 + map(noise(cx * 0.02 + cos(a) + 30, cy * 0.02 + sin(a)), 0, 1, -0.15, 0.15);
+    let x = cx + cos(a) * w * 0.38 * r;
+    let y = cy + sin(a) * h * 0.35 * r;
+    curveVertex(x, y);
+  }
+  endShape(CLOSE);
+}
+
+function drawSavannaArea(x, y) {
+  drawHabitatBlob(x + 120, y + 115, 300, 190, color(220, 175, 95), color(245, 210, 130));
+
+ 
+  noStroke();
+  drawRock(x + 45, y + 145);
+  drawRock(x + 95, y + 170);
+  drawAcaciaTree(x + 185, y + 35);
+
+  fill(90, 55, 20);
   textSize(18);
-  text("Lion Savanna", x + 60, y + 25);
+  text("Lion Savanna", x + 55, y + 25);
 }
 
 function drawMeadowArea(x, y) {
-  noStroke();
-  fill(130, 220, 120);
-  ellipse(x + 120, y + 110, 260, 170);
+  drawHabitatBlob(x + 120, y + 115, 310, 195, color(120, 190, 120), color(155, 220, 145));
 
-  drawSmallBush(x + 30, y + 140);
-  drawSmallBush(x + 190, y + 70);
+  // mud patch
+  fill(130, 95, 65, 160);
+  ellipse(x + 85, y + 135, 95, 45);
+  fill(160, 120, 80, 120);
+  ellipse(x + 95, y + 130, 55, 20);
 
-  fill(40, 90, 30);
+  // water pool
+  fill(80, 170, 210, 170);
+  ellipse(x + 180, y + 90, 100, 45);
+  fill(255, 255, 255, 80);
+  ellipse(x + 165, y + 82, 40, 8);
+
+  drawSmallBush(x + 35, y + 150);
+  drawSmallBush(x + 210, y + 140);
+
+  fill(40, 90, 45);
   textSize(18);
-text("Elephant Arena", x + 35, y + 25);
+  text("Elephant Wetland", x + 40, y + 25);
 }
 
 function drawPeacockArea(x, y) {
-  noStroke();
+  drawHabitatBlob(x + 120, y + 115, 300, 185, color(175, 205, 165), color(215, 190, 230));
 
-  // lighter contrasting background (purple/lavender tone)
-  fill(200, 180, 230);
-  ellipse(x + 120, y + 110, 260, 170);
+  // flower garden
+ for (let i = 0; i < 16; i++) {
+  let baseX = x + 40 + i * 12;
+  let baseY = y + 110 + (i % 4) * 12;
 
-  // decorative flowers instead of dense green leaves
-  for (let i = 0; i < 6; i++) {
-    fill(255, 200, 220);
-    ellipse(x + 40 + i * 35, y + 120, 14, 14);
-    fill(255, 230, 100);
-    ellipse(x + 40 + i * 35, y + 120, 6, 6);
-  }
+  // 🌿 slow organic movement
+  let moveX = map(noise(i * 10 + frameCount * 0.02), 0, 1, -6, 6);
+  let moveY = map(noise(i * 20 + frameCount * 0.02), 0, 1, -5, 5);
 
-  // small bushes (lighter tone)
-  fill(150, 200, 150);
-  ellipse(x + 60, y + 150, 50, 30);
-  ellipse(x + 180, y + 90, 50, 30);
+  let fx = baseX + moveX;
+  let fy = baseY + moveY;
 
-  fill(80, 40, 100);
+  // 🌸 soft color variation (NOT random every frame)
+  let r = map(noise(i * 30), 0, 1, 180, 255);
+  let g = map(noise(i * 40), 0, 1, 120, 220);
+  let b = map(noise(i * 50), 0, 1, 160, 255);
+
+  fill(r, g, b);
+  ellipse(fx - 5, fy, 9, 9);
+  ellipse(fx + 5, fy, 9, 9);
+  ellipse(fx, fy - 5, 9, 9);
+  ellipse(fx, fy + 5, 9, 9);
+
+  fill(255, 225, 80);
+  ellipse(fx, fy, 5, 5);
+}
+
+  // small decorative path
+  fill(220, 195, 150, 160);
+  ellipse(x + 120, y + 145, 150, 35);
+
+  drawSmallBush(x + 45, y + 145);
+  drawSmallBush(x + 200, y + 85);
+
+  fill(70, 45, 100);
   textSize(18);
-  text("Peacock Garden", x + 60, y + 25);
+  text("Peacock Garden", x + 55, y + 25);
 }
 
 function drawBambooArea(x, y) {
-  noStroke();
-  fill(180, 230, 170);
-  ellipse(x + 120, y + 110, 270, 170);
+  drawHabitatBlob(x + 125, y + 115, 320, 190, color(120, 190, 120), color(180, 230, 170));
 
-  for (let i = 0; i < 6; i++) {
-    drawBamboo(x + 30 + i * 35, y + 40);
+  // bamboo forest - fixed positions, no shaking
+  for (let i = 0; i < 8; i++) {
+    drawBamboo(x + 25 + i * 32, y + 40 + i * 4);
   }
+
+  // stones
+  drawRock(x + 55, y + 155);
+  drawRock(x + 215, y + 145);
+
+  // leaf piles
+  fill(65, 150, 70, 150);
+  ellipse(x + 105, y + 160, 80, 25);
+  ellipse(x + 180, y + 95, 70, 22);
 
   fill(30, 90, 40);
   textSize(18);
-  text("Panda Bamboo Garden", x + 35, y + 25);
+  text("Panda Bamboo Forest", x + 35, y + 25);
 }
 
 function drawGiraffeArea(x, y) {
-  noStroke();
-  fill(240, 210, 130);
-  ellipse(x + 120, y + 110, 270, 170);
+  drawHabitatBlob(x + 130, y + 115, 325, 195, color(215, 175, 95), color(245, 215, 140));
 
-  drawAcaciaTree(x + 200, y + 20);
-  drawRock(x + 45, y + 135);
+  noStroke();
+  drawAcaciaTree(x + 205, y + 20);
+  drawAcaciaTree(x + 35, y + 50);
+  drawRock(x + 70, y + 155);
 
   fill(90, 60, 20);
   textSize(18);
-  text("Giraffe Acacia Land", x + 40, y + 25);
+  text("Giraffe Acacia Land", x + 35, y + 25);
 }
+
+
+
+
+
 
 function drawRock(x, y) {
   fill(130);
@@ -672,19 +786,61 @@ function drawBigLeaf(x, y) {
 }
 
 function drawBamboo(x, y) {
-  stroke(40, 120, 50);
-  strokeWeight(8);
-  line(x, y, x, y + 120);
+  noStroke();
 
-  strokeWeight(2);
-  line(x - 8, y + 30, x + 8, y + 30);
-  line(x - 8, y + 60, x + 8, y + 60);
-  line(x - 8, y + 90, x + 8, y + 90);
+  // 🌳 bamboo stem (static, slightly organic shape)
+  fill(70, 150, 80);
+  rect(x - 4, y, 8, 120, 6);
+
+  // joints (nodes)
+  fill(50, 120, 65);
+  rect(x - 5, y + 25, 10, 6, 3);
+  rect(x - 5, y + 55, 10, 6, 3);
+  rect(x - 5, y + 85, 10, 6, 3);
+
+  // soft highlight
+  fill(120, 200, 120, 90);
+  rect(x - 2, y + 10, 3, 90, 2);
+
+  // 🍃 leaf clusters (slow movement only here)
+  drawBambooLeaf(x + 8, y + 30, 1);
+  drawBambooLeaf(x - 8, y + 50, -1);
+  drawBambooLeaf(x + 10, y + 75, 1);
+  drawBambooLeaf(x - 6, y + 100, -1);
+}
+
+function drawBambooLeaf(x, y, side) {
+  // 🌿 very slow, gentle movement
+  let move = map(noise(frameCount * 0.002 + x), 0, 1, -1.2, 1.2);
+
+  push();
+  translate(x + move, y);
+  scale(side, 1);
 
   noStroke();
-  fill(50, 160, 70);
-  ellipse(x + 15, y + 35, 35, 15);
-  ellipse(x - 15, y + 70, 35, 15);
+
+  // 🍃 main leaf (long + pointed, not round)
+  fill(55, 155, 75);
+  beginShape();
+  vertex(0, 0);
+  bezierVertex(18, -6, 28, -4, 42, 0);
+  bezierVertex(28, 4, 18, 6, 0, 0);
+  endShape();
+
+  // 🌿 inner lighter layer (depth)
+  fill(95, 190, 110, 150);
+  beginShape();
+  vertex(4, 0);
+  bezierVertex(18, -4, 24, -2, 34, 0);
+  bezierVertex(24, 2, 18, 4, 4, 0);
+  endShape();
+
+  // 🌱 center vein
+  stroke(35, 110, 55, 180);
+  strokeWeight(1.2);
+  line(0, 0, 40, 0);
+
+  pop();
 }
 
 function winkEye(x, y) {
@@ -1183,16 +1339,28 @@ function mousePressed() {
 }
 
 function keyPressed() {
+
+  // go to game
   if (key === "g" || key === "G") {
     mode = 2;
-    
-    sunY = height +300;
+
+    sunY = height + 300;
     sunRising = false;
-    
+
     feedingSuccess = false;
     wrongTimer = 0;
     confetti = [];
     setupFoods();
+  }
+
+  // 🔙 return to zoo
+  if (key === "r" || key === "R") {
+    mode = 1;
+
+    // optional resets (keeps things clean)
+    draggingFood = null;
+    sadLionTimer = 0;
+    feedingSuccess = false;
   }
 }
 
@@ -1263,6 +1431,10 @@ function drawLionGame() {
   fill(60, 35, 10);
   textSize(26);
   text("Feed the Lion!", 30, 40);
+  
+  fill(60, 35, 10);
+textSize(18);
+text("Press R to return to zoo", 30, 70);
 
  for (let i = 0; i < gameLions.length; i++) {
   moveGameLion(gameLions[i]);
