@@ -863,7 +863,14 @@ function drawGiraffeTail(x, y) {
 
 
 function drawLionLegs(x, y) {
-  let step = frameCount % 40 < 20 ? 5 : -5;
+
+  let step;
+
+  if (frameCount % 40 < 20) {
+    step = 5;
+  } else {
+    step = -5;
+  }
 
   stroke(100, 60, 30);
   strokeWeight(4);
@@ -884,7 +891,13 @@ function drawLionLegs(x, y) {
 
 
 function drawElephantLegs(x, y) {
-  let step = frameCount % 40 < 20 ? 6 : -6;
+  let step;
+  
+  if (frameCount % 40 < 20) {
+    step = 6;
+  } else {
+    step = -6;
+  }
 
   stroke(255);
   strokeWeight(7);
@@ -904,8 +917,13 @@ function drawElephantLegs(x, y) {
 
 
 function drawPeacockLegs(x, y) {
-  let step = frameCount % 40 < 20 ? 5 : -5;
+ let step;
 
+  if (frameCount % 40 < 20) {
+    step = 5;
+  } else {
+    step = -5;
+  }
   stroke(160, 80, 35);
   strokeWeight(6);
   noFill();
@@ -926,15 +944,26 @@ function drawPeacockLegs(x, y) {
 function drawPandaLegs(x, y) {
   fill(0);
   noStroke();
+ let step;
 
-  let step = frameCount % 45 < 22 ? 3 : -3;
+  if (frameCount % 45 < 22) {
+    step = 3;
+  } else {
+    step = -3;
+  }
 
   ellipse(x - 28, y + 34 + step, 30, 22);
   ellipse(x + 28, y + 34 - step, 30, 22);
 }
 
 function drawGiraffeLegs(x, y) {
-  let step = frameCount % 40 < 20 ? 7 : -7;
+  let step;
+
+  if (frameCount % 40 < 20) {
+    step = 7;
+  } else {
+    step = -7;
+  }
 
   stroke(230, 180, 80);
   strokeWeight(6);
@@ -951,7 +980,6 @@ function drawGiraffeLegs(x, y) {
   ellipse(x - 40, y + 75 + step, 20, 7);
   ellipse(x + 38, y + 75 - step, 20, 7);
 }
-
 
 
 
